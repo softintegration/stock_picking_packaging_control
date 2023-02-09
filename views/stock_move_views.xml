@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?><odoo>
+  <data>
+
+      <record id="view_stock_move_line_detailed_operation_tree_inherited" model="ir.ui.view">
+          <field name="name">view.stock.move.line.detailed.operation.tree.inherited</field>
+          <field name="model">stock.move.line</field>
+          <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+          <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                <field name="control_product_packaging" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_qty']" position="before">
+                <field name="product_packaging_id" groups="product.group_stock_packaging"/>
+                <field name="use_packaging" invisible="1"/>
+                <field name="qty_by_packaging"
+                       attrs="{'column_invisible':[('parent.control_product_packaging','=',False)],'invisible':[('use_packaging','=',False)],'required':[('use_packaging','=',True)]}"
+                       optional="show"
+                       groups="product.group_stock_packaging"/>
+                <field name="packaging_nbr"
+                       attrs="{'column_invisible':[('parent.control_product_packaging','=',False)],'invisible':[('use_packaging','=',False)],'required':[('use_packaging','=',True)]}"
+                       optional="show"
+                       groups="product.group_stock_packaging"/>
+            </xpath>
+          </field>
+        </record>
+  </data>
+</odoo>

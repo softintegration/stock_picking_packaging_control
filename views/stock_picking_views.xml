@@ -21,19 +21,23 @@
           <field name="arch" type="xml">
             <xpath expr="//field[@name='location_dest_id']" position="after">
                 <field name="control_product_packaging" invisible="1"/>
+                <field name="control_in_details" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_packaging_id']" position="after">
                 <field name="use_packaging" invisible="1"/>
                 <field name="qty_by_packaging"
-                       attrs="{'column_invisible':[('parent.control_product_packaging','=',False)],'invisible':[('use_packaging','=',False)],'required':[('use_packaging','=',True)]}"
+                       attrs="{'column_invisible':['|',('parent.control_product_packaging','=',False),('parent.control_in_details','=',True)],'invisible':[('use_packaging','=',False)],'required':[('use_packaging','=',True)]}"
                        optional="show"
                        groups="product.group_stock_packaging"/>
                 <field name="packaging_nbr"
-                       attrs="{'column_invisible':[('parent.control_product_packaging','=',False)],'invisible':[('use_packaging','=',False)],'required':[('use_packaging','=',True)]}"
+                       attrs="{'column_invisible':['|',('parent.control_product_packaging','=',False),('parent.control_in_details','=',True)],'invisible':[('use_packaging','=',False)],'required':[('use_packaging','=',True)]}"
                        optional="show"
                        groups="product.group_stock_packaging"/>
 
             </xpath>
+              <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_packaging_id']" position="attributes">
+                  <attribute name="attrs">{'column_invisible':['|',('parent.control_product_packaging','=',False),('parent.control_in_details','=',True)]}</attribute>
+              </xpath>
           </field>
         </record>
   </data>
