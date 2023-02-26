@@ -30,10 +30,11 @@ class StockMoveLine(models.Model):
                 each.incomplete_qty = 0.0
 
     def _action_done(self):
-        res = super(StockMoveLine, self)._action_done()
+        # this must be done before the super call to avoid falling in the issue «Record does not exist or has been deleted»
+        # because the super _action_done can remove move lines in self
         for move_line in self.filtered(lambda mvl: mvl.use_packaging and mvl.move_id.control_in_details):
             move_line._check_packaging_consistency()
-        return res
+        return super(StockMoveLine, self)._action_done()
 
     def _check_packaging_consistency(self):
         self.ensure_one()
