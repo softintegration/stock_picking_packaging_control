@@ -34,7 +34,8 @@ class StockMoveLine(models.Model):
         # because the super _action_done can remove move lines in self
         for move_line in self.filtered(lambda mvl: mvl.use_packaging and mvl.move_id.control_in_details):
             move_line._check_packaging_consistency()
-        return super(StockMoveLine, self)._action_done()
+        res = super(StockMoveLine, self)._action_done()
+        return res
 
     def _check_packaging_consistency(self):
         self.ensure_one()
@@ -57,3 +58,13 @@ class StockMoveLine(models.Model):
         if ref_packaging_nbr != self.packaging_nbr:
             raise ValidationError(
                 _("Nbr of packaging in move %s doesn't match the Quantity Done and Contained Quantity in %s ") %(self.move_id.name,self.product_packaging_id.name))
+
+    def _get_aggregated_product_quantities(self, **kwargs):
+        aggregated_move_lines = super()._get_aggregated_product_quantities(**kwargs)
+        for key,aggr_move_line in aggregated_move_lines.items():
+            product_id = key.split("_")[0]
+            move_line = self.filtered(lambda ml:ml.product_id.id == int(product_id))
+            aggr_move_line.update({'qty_by_packaging':move_line[0].qty_by_packaging,
+                                   'packaging_nbr':move_line[0].packaging_nbr,
+                                   'use_packaging':move_line[0].use_packaging})
+        return aggregated_move_lines
