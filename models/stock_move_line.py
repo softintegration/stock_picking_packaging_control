@@ -66,5 +66,6 @@ class StockMoveLine(models.Model):
             move_line = self.filtered(lambda ml:ml.product_id.id == int(product_id))
             aggr_move_line.update({'qty_by_packaging':move_line[0].qty_by_packaging,
                                    'packaging_nbr':move_line[0].packaging_nbr,
-                                   'use_packaging':move_line[0].use_packaging})
+                                   'use_packaging':move_line[0].use_packaging,
+                                   'incomplete_qty':move_line[0].incomplete_qty})
         return aggregated_move_lines

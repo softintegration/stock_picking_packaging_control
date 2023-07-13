@@ -6,6 +6,7 @@
             <t t-if="o.picking_type_id.control_product_packaging">
                 <th name="th_sm_qty_by_packaging"><strong>Qty by packaging</strong></th>
                 <th name="th_sm_packaging_nbr"><strong>Nbr of packaging</strong></th>
+                <th name="th_sm_incomplete_qty"><strong>Incomplete Qty</strong></th>
             </t>
         </xpath>
         <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[3]" position="before">
@@ -16,12 +17,16 @@
                 <td>
                     <span t-field="move.packaging_nbr"/>
                 </td>
+                <td>
+                    <span t-field="move.incomplete_qty"/>
+                </td>
             </t>
         </xpath>
         <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_quantity']" position="before">
             <t t-if="o.picking_type_id.control_product_packaging">
                 <th name="th_sml_qty_by_packaging"><strong>Qty by packaging</strong></th>
                 <th name="th_sml_packaging_nbr"><strong>Nbr of packaging</strong></th>
+                <th name="th_sml_incomplete_qty"><strong>Incomplete Qty</strong></th>
             </t>
         </xpath>
     </template>
@@ -34,6 +39,9 @@
                 </td>
                 <td class="text-center" name="td_client_ref">
                     <span t-esc="aggregated_lines[line]['packaging_nbr']"/>
+                </td>
+                <td class="text-center" name="td_client_ref">
+                    <span t-esc="aggregated_lines[line]['incomplete_qty']"/>
                 </td>
             </t>
         </xpath>
