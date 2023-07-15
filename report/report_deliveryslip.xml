@@ -13,12 +13,14 @@
             <t t-if="o.picking_type_id.control_product_packaging">
                 <td>
                     <span t-field="move.qty_by_packaging"/>
+                    <span t-field="move.product_uom"/>
                 </td>
                 <td>
                     <span t-field="move.packaging_nbr"/>
                 </td>
                 <td>
                     <span t-field="move.incomplete_qty"/>
+                    <span t-field="move.product_uom"/>
                 </td>
             </t>
         </xpath>
@@ -36,12 +38,14 @@
             <t t-if="aggregated_lines[line]['use_packaging']">
                 <td class="text-center" name="td_prepress_proof_id">
                     <span t-esc="aggregated_lines[line]['qty_by_packaging']"/>
+                    <span t-esc="aggregated_lines[line]['product_uom']"/>
                 </td>
                 <td class="text-center" name="td_client_ref">
                     <span t-esc="aggregated_lines[line]['packaging_nbr']"/>
                 </td>
                 <td class="text-center" name="td_client_ref">
                     <span t-esc="aggregated_lines[line]['incomplete_qty']"/>
+                    <span t-esc="aggregated_lines[line]['product_uom']"/>
                 </td>
             </t>
         </xpath>
