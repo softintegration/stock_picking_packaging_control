@@ -33,6 +33,26 @@
         </xpath>
     </template>
 
+
+
+    <template inherit_id="stock.stock_report_delivery_has_serial_move_line" id="stock_report_delivery_has_serial_move_line_inherited">
+        <xpath expr="//td[@name='move_line_lot_qty_done']" position="before">
+            <t t-if="move_line.control_product_packaging">
+                <td>
+                    <span t-field="move_line.qty_by_packaging"/>
+                    <span t-field="move_line.product_uom_id"/>
+                </td>
+                <td>
+                    <span t-field="move_line.packaging_nbr"/>
+                </td>
+                <td>
+                    <span t-field="move_line.incomplete_qty"/>
+                    <span t-field="move_line.product_uom_id"/>
+                </td>
+            </t>
+        </xpath>
+    </template>
+
     <template inherit_id="stock.stock_report_delivery_aggregated_move_lines" id="stock_report_delivery_aggregated_move_lines_inherited">
         <xpath expr="//td[@name='move_line_aggregated_qty_done']" position="before">
             <t t-if="aggregated_lines[line]['use_packaging']">
