@@ -36,7 +36,7 @@
 
             </xpath>
               <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_packaging_id']" position="attributes">
-                  <attribute name="attrs">{'column_invisible':['|',('parent.control_product_packaging','=',False),('parent.control_in_details','=',True)]}</attribute>
+                  <attribute name="attrs">{'column_invisible':[('parent.control_in_details','=',True)]}</attribute>
               </xpath>
           </field>
         </record>
